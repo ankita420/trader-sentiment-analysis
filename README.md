@@ -1,176 +1,210 @@
-Trader Behavior vs Market Sentiment Analysis
+📊 Trader Behavior Insights from Fear & Greed Sentiment Analysis
 Overview
 
-This project analyzes how cryptocurrency traders behave under different market sentiment conditions using the Fear & Greed Index.
+This project analyzes the relationship between crypto market sentiment (Fear & Greed Index) and trader behavior/performance using historical trading data.
 
-The analysis investigates:
+The objective is to determine whether traders modify their trading strategies, risk exposure, and profitability under different market sentiment conditions such as:
 
-Profitability under different sentiment regimes
-Trading frequency changes during Fear vs Greed
-Long/Short behavior
-Position sizing behavior
-Risk metrics (Drawdown, Exposure)
-Trader segmentation
-Predictive modeling of future trader performance
-Dataset
-1. Historical Trading Data
+Extreme Fear
+Fear
+Neutral
+Greed
+Extreme Greed
 
-Contains individual trade-level information including:
+The project combines sentiment data with transaction-level trading data to generate actionable insights, trader segments, and predictive models.
 
-Account
-Coin
-Execution Price
-Size USD
-Size Tokens
-Direction
-Closed PnL
-Fee
-Timestamp
+Business Problem
 
-⚠️ Not included in this repository because the file exceeds GitHub size limits.
+Market sentiment often influences trader decisions.
 
-Place the file in the project root directory:
+This project investigates:
 
-project/
-│
-├── historical_data.csv
-├── fear_greed_index.csv
-├── trader-sentiment-analysis.ipynb
-├── README.md
-└── METHODOLOGY_AND_INSIGHTS.md
-2. Fear & Greed Dataset
+Does trader profitability differ between Fear and Greed periods?
+Do traders change behavior based on sentiment?
+Trade frequency
+Position sizing
+Long/Short bias
+Risk exposure
+Which trader segments perform best?
+Can future profitability or volatility be predicted using sentiment and behavioral features?
+Dataset Description
+Historical Trading Data
 
-Contains daily market sentiment:
+Contains trade-level information including:
 
 Feature	Description
-timestamp	Unix timestamp
-value	Fear & Greed score
-classification	Extreme Fear, Fear, Neutral, Greed, Extreme Greed
-date	Calendar date
-Project Structure
+Account	Unique trader identifier
+Coin	Cryptocurrency traded
+Execution Price	Trade execution price
+Size Tokens	Number of tokens traded
+Size USD	Dollar value of trade
+Side	Buy/Sell
+Direction	Buy, Sell, Close Long, Close Short
+Closed PnL	Realized profit/loss
+Fee	Transaction fee
+Timestamp IST	Trade execution timestamp
+Fear & Greed Index Data
+Feature	Description
+value	Fear & Greed score (0-100)
+classification	Sentiment category
+date	Observation date
+
+Sentiment Classification:
+
+Score Range	Sentiment
+0-24	Extreme Fear
+25-49	Fear
+50-74	Greed
+75-100	Extreme Greed
+Methodology
+1. Data Preprocessing
+Converted timestamps to datetime format
+Extracted trading date
+Removed inconsistencies
+Merged trading data with sentiment data on date
+2. Feature Engineering
+
+Generated additional metrics:
+
+Daily PnL
+
+Measures trader profitability per day.
+
+Win Rate
+
+Percentage of profitable trades.
+
+Trade Frequency
+
+Number of trades executed per day.
+
+Long/Short Ratio
+
+Measures directional bias.
+
+Exposure Ratio
+
+Approximates trading aggressiveness.
+
+Drawdown Proxy
+
+Measures decline from peak cumulative profitability.
+
+3. Exploratory Data Analysis
+
+Performed:
+
+Sentiment distribution analysis
+PnL analysis by sentiment
+Trade frequency analysis
+Position size analysis
+Long vs Short analysis
+Drawdown analysis
+4. Trader Segmentation
+
+Traders were segmented into groups such as:
+
+High vs Low Risk Traders
+Frequent vs Infrequent Traders
+Consistent vs Inconsistent Performers
+
+using behavioral and profitability metrics.
+
+5. Predictive Modeling
+
+Built machine learning models to predict:
+
+Next-day profitability
+Future PnL volatility
+
+using:
+
+Sentiment score
+Trade frequency
+Exposure ratio
+Position size
+Historical performance
+
+Models used:
+
+Random Forest Regressor
+Random Forest Classifier
+Key Findings
+Insight 1: Sentiment Impacts Profitability
+
+Extreme Greed periods generated the highest average profit per trade.
+
+Insight 2: Trading Activity Changes with Sentiment
+
+Trade frequency increased significantly during Fear and Greed periods compared to Neutral markets.
+
+Insight 3: High-Risk Traders Experience Larger Drawdowns
+
+Aggressive traders generated higher returns but suffered larger drawdowns.
+
+Insight 4: Long/Short Bias Varies Across Sentiment Regimes
+
+Traders displayed stronger directional bias during extreme sentiment conditions.
+
+Strategy Recommendations
+Strategy 1
+
+During Extreme Fear periods:
+
+Reduce exposure
+Focus on capital preservation
+Avoid excessive leverage
+Strategy 2
+
+During Extreme Greed periods:
+
+Increase participation selectively
+Maintain risk controls
+Use trailing exits to protect profits
+Repository Structure
 Trader-Sentiment-Analysis/
 │
 ├── trader-sentiment-analysis.ipynb
 ├── fear_greed_index.csv
+├── historical_data.csv
 ├── METHODOLOGY_AND_INSIGHTS.md
-├── README.md
-└── historical_data.csv (download separately)
-Key Questions Answered
-Performance Analysis
-Does trader profitability differ during Fear vs Greed markets?
-How does win rate change across sentiment conditions?
-Behavioral Analysis
-Do traders increase position sizes during Greed?
-Does long/short preference change with sentiment?
-How does trading activity vary across sentiment regimes?
-Risk Analysis
-Exposure Ratio
-Drawdown Proxy
-Daily PnL
-Trading Frequency
-Segmentation
+└── README.md
+Requirements
 
-Traders are grouped into:
+Install required libraries:
 
-High vs Low Risk
-Frequent vs Infrequent Traders
-Consistent vs Inconsistent Performers
-Methodology
-Data Preparation
-Convert timestamps to datetime
-Extract trading date
-Merge trading data with Fear & Greed data using date
-Aggregate trader activity daily
-Feature Engineering
+pip install pandas numpy matplotlib seaborn scikit-learn jupyter
+How to Run
+Step 1: Clone Repository
+git clone <repository-url>
+cd Trader-Sentiment-Analysis
+Step 2: Place Dataset
 
-Features created:
+Download or obtain:
 
-Daily PnL
-Win Rate
-Trade Frequency
-Exposure Ratio
-Drawdown Proxy
-Long/Short Ratio
-Position Size Metrics
-Analysis
-Descriptive statistics
-Sentiment comparison
-Trader segmentation
-Correlation analysis
-Predictive modeling
-Installation
-Clone Repository
-git clone https://github.com/ankita420/trader-sentiment-analysis.git
+historical_data.csv
 
-cd trader-sentiment-analysis
-Create Environment
-python -m venv venv
+and place it in the project root directory.
 
-Activate environment:
+Final structure:
 
-Windows
-
-venv\Scripts\activate
-
-Linux/Mac
-
-source venv/bin/activate
-Install Dependencies
-pip install pandas
-pip install numpy
-pip install matplotlib
-pip install seaborn
-pip install scikit-learn
-pip install jupyter
-
-or
-
-pip install -r requirements.txt
-Running the Project
-Start Jupyter Notebook
+Trader-Sentiment-Analysis/
+│
+├── historical_data.csv
+├── fear_greed_index.csv
+├── trader-sentiment-analysis.ipynb
+└── README.md
+Step 3: Launch Jupyter Notebook
 jupyter notebook
 
 Open:
 
 trader-sentiment-analysis.ipynb
+Step 4: Run All Cells
 
-Run all cells sequentially.
+Execute notebook cells sequentially:
 
-Main Outputs
-
-The notebook generates:
-
-Tables
-Average PnL by sentiment
-Win rate by sentiment
-Long/Short ratios
-Exposure metrics
-Trader segments
-Visualizations
-Sentiment distribution
-PnL by sentiment
-Trade frequency analysis
-Drawdown analysis
-Trader segmentation charts
-Models
-Next-day profitability prediction
-Future volatility prediction
-Feature importance analysis
-Key Findings
-
-Examples of findings generated:
-
-Extreme Greed periods showed the highest average profit per trade.
-Fear periods generated the highest overall trading activity.
-High-risk traders experienced significantly larger drawdowns.
-Trading behavior changed noticeably across sentiment regimes.
-
-See:
-
-METHODOLOGY_AND_INSIGHTS.md
-
-for complete discussion and conclusions.
-
+Kernel → Restart & Run All
 Technologies Used
 Python
 Pandas
@@ -179,25 +213,13 @@ Matplotlib
 Seaborn
 Scikit-Learn
 Jupyter Notebook
+Future Improvements
+Streamlit Dashboard Deployment
+Real-time Sentiment Integration
+Advanced ML Models (XGBoost, LightGBM)
+Portfolio Risk Analytics
+Reinforcement Learning Based Trading Strategies
 Author
 
 Ankita Agrawal
-
-Data Science & Machine Learning Student
-
-Future Improvements
-Advanced predictive models (XGBoost, LightGBM)
-Interactive dashboards using Streamlit
-Real-time sentiment integration
-Portfolio-level risk analytics
-
-Also create a requirements.txt file in the repository with:
-
-pandas
-numpy
-matplotlib
-seaborn
-scikit-learn
-jupyter
-
-This makes your repository look much more professional for internship reviewers and recruiters.
+Data Science & Machine Learning Enthusiast
